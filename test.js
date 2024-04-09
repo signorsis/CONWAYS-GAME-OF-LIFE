@@ -1,5 +1,7 @@
 
-const {nextBoardState}=require('./main')
+const {logTestResult}= require ('./utils')
+const {nextBoardState}=require('./gameOfLife')
+
 function test()
 {
     // test 1
@@ -15,8 +17,9 @@ function test()
         [0,0,0],
         [0,0,0]
     ]
-
-    logResult(1,expectedState,testArray)
+    const actualState1=nextBoardState(testArray)
+    
+    logTestResult(1,expectedState,actualState1)
    // test 2
     // check dead cell with exactly 3  alive neighbour will be alive
 
@@ -33,37 +36,10 @@ function test()
         [0,0,0,0],
     ]
     
-    logResult(2,expectedState2,testArray2)
+    const actualState2=nextBoardState(testArray)
+    
+    logTestResult(2,expectedState,actualState2)
 }
 
-function are2DArraysEqual(array1, array2) {
-    if (array1.length !== array2.length) {
-        return false;
-    }
 
-    for (let i = 0; i < array1.length; i++) {
-        if (array1[i].length !== array2[i].length) {
-            return false;
-        }
-        
-        for (let j = 0; j < array1[i].length; j++) {
-            if (array1[i][j] !== array2[i][j]) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-function logResult( testNum,expectedState,testArray) {
-    const actualnewState=nextBoardState(testArray)
-    if (are2DArraysEqual(actualnewState,expectedState))
-    {
-        console.log(`test ${testNum}: passed`);
-    }
-    else {
-        console.log(`test ${testNum}: Failed \n expected value: ${expectedState} \n actual Value: ${actualnewState}`);
-    }
-}
 module.exports={test}
